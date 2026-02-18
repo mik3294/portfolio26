@@ -14,6 +14,28 @@
 
 </head>
 
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const form = this;
+  const formMessage = document.getElementById("formMessage");
+
+  fetch(form.action, {
+    method: "POST",
+    body: new FormData(form),
+  })
+  .then(response => response.json())
+  .then(data => {
+    formMessage.innerHTML = "Thank you! Your message has been sent.";
+    form.reset();
+  })
+  .catch(error => {
+    formMessage.innerHTML = "Oops! Something went wrong. Please try again.";
+  });
+});
+</script>
+
 <body>
 
 <!-- NAVBAR -->
@@ -251,37 +273,34 @@
           Interested in my work or want to collaborate? Feel free to reach out.
         </p>
 
-        <form action="https://formsubmit.co/miakrthk@gmail.com" method="POST">
-          
-          <!-- Disable Captcha -->
+        <form action="https://formsubmit.co/ajax/miakrthk@gmail.com" method="POST" id="contactForm">
+  
           <input type="hidden" name="_captcha" value="false">
-          
-          <!-- Email Subject -->
           <input type="hidden" name="_subject" value="New Portfolio Inquiry!">
-          
-          <!-- Redirect After Submit -->
-          <input type="hidden" name="_next" value="https://yourdomain.com/thankyou.html">
 
-          <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" name="name" class="form-control" placeholder="Your name" required>
-          </div>
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" name="name" class="form-control" placeholder="Your name" required>
+            </div>
 
-          <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
-          </div>
+              <div class="mb-3">
+              <label class="form-label">Email</label>
+               <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
+            </div>
 
-          <div class="mb-3">
-            <label class="form-label">Message</label>
-            <textarea name="message" class="form-control" rows="4" placeholder="Your message" required></textarea>
-          </div>
+            <div class="mb-3">
+              <label class="form-label">Message</label>
+              <textarea name="message" class="form-control" rows="4" placeholder="Your message" required></textarea>
+            </div>
 
-          <div class="d-grid">
-            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
-          </div>
+            <div class="d-grid">
+             <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+            </div>
+
+          <p id="formMessage" class="text-center mt-3"></p>
 
         </form>
+
       </div>
     </div>
   </div>
